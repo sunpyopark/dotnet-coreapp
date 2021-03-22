@@ -32,7 +32,7 @@ spec:
         tier: frontend
     spec:
       containers:
-        - image: 'krandmm/dotnet-coreapp:v0.1.42'
+        - image: 'krandmm/dotnet-coreapp:v0.1.43'
           imagePullPolicy: Always
           name: dotnet-webapp
           ports:
