@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-coreapp
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: dotnet-coreapp
+    tier: frontend
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dotnet-coreapp
+    tier: frontend
+  name: dotnet-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-coreapp
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: dotnet-coreapp
+        tier: frontend
+    spec:
+      containers:
+        - image: 'krandmm/dotnet-coreapp:v0.1.42'
+          imagePullPolicy: Always
+          name: dotnet-webapp
+          ports:
+            - containerPort: 8081
